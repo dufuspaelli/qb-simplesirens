@@ -9,11 +9,9 @@ local sirenList = {}
 
 RegisterCommand("sirenDefault", function()
     if isSirenChange(sirenNormal) or not toggle then 
-        print("changed or playing")
         toggle = true
         playSiren(sirenNormal)
     elseif toggle and not isSirenChange(sirenNormal) then 
-        print("muted")
         toggle = false
         playSiren("muted")
     end
@@ -55,10 +53,8 @@ RegisterCommand("sirenMute", function()
     local playerCar = GetVehiclePedIsIn(playerPed,false)
     local carNetId = VehToNet(playerCar)
     if isSirenChange("muted") then 
-        print("muted")
         playSiren("muted")
     else
-        print("reactivated")
         local siren = sirenNormal
         playSiren(siren)
     end
@@ -130,7 +126,6 @@ function isSirenChange(siren)
     if sirenList[carNetId] == nil then 
         return false
     else 
-        print("curr:" ..  currentSiren .. " change:" .. siren )
      return currentSiren ~= siren or false
     end
 end
