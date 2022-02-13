@@ -1,3 +1,5 @@
+QBCore = exports['qb-core']:GetCoreObject()
+
 local toggle = false
 local sirenHorn = "SIRENS_AIRHORN"
 local sirenNormal = "VEHICLES_HORNS_SIREN_1"

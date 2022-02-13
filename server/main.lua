@@ -1,3 +1,5 @@
+QBCore = exports['qb-core']:GetCoreObject()
+
 local sirens = {}
 
 RegisterNetEvent("setSiren", function(siren, carNetId)
