@@ -79,29 +79,31 @@ end)
 CreateThread(function()
     while true do 
         for carNet, val in pairs(sirenList) do
-            local car = NetToVeh(carNet)
-            SetVehicleHasMutedSirens(car, true)
-            local muted = val.siren == "muted" or not IsVehicleSirenOn(car) or IsVehicleSeatFree(car, -1) or false
-            local currentSiren = Entity(car).state.currentSiren
-            local sirenChange = currentSiren ~= val.siren or false
-            local sirenOn = Entity(car).state.sirenOn == nil or Entity(car).state.sirenOn == false and IsVehicleSirenOn(car) or false
-            if muted then 
-                StopSound(Entity(car).state.soundId)
-                Entity(car).state:set('sirenOn', false, true)
-                Entity(car).state:set("currentSiren", val.siren ,true)
-            elseif sirenOn then 
-                local soundId = GetSoundId()
-                Entity(car).state:set('sirenOn', true, true)
-                Entity(car).state:set('soundId', soundId, true)
-                Entity(car).state:set("currentSiren", val.siren ,true)
-                PlaySoundFromEntity(soundId, val.siren, car, 0,0,0)
-            elseif sirenChange then 
-                local soundId = GetSoundId()
-                StopSound(Entity(car).state.soundId)
-                Entity(car).state:set('sirenOn', true, true)
-                Entity(car).state:set('soundId', soundId, true)
-                Entity(car).state:set("currentSiren", val.siren ,true)
-                PlaySoundFromEntity(soundId, val.siren, car, 0,0,0)
+            if NetworkDoesNetworkIdExist(carNet) then 
+                local car = NetToVeh(carNet)
+                SetVehicleHasMutedSirens(car, true)
+                local muted = val.siren == "muted" or not IsVehicleSirenOn(car) or IsVehicleSeatFree(car, -1) or false
+                local currentSiren = Entity(car).state.currentSiren
+                local sirenChange = currentSiren ~= val.siren or false
+                local sirenOn = Entity(car).state.sirenOn == nil or Entity(car).state.sirenOn == false and IsVehicleSirenOn(car) or false
+                if muted then 
+                    StopSound(Entity(car).state.soundId)
+                    Entity(car).state:set('sirenOn', false, true)
+                    Entity(car).state:set("currentSiren", val.siren ,true)
+                elseif sirenOn then 
+                    local soundId = GetSoundId()
+                    Entity(car).state:set('sirenOn', true, true)
+                    Entity(car).state:set('soundId', soundId, true)
+                    Entity(car).state:set("currentSiren", val.siren ,true)
+                    PlaySoundFromEntity(soundId, val.siren, car, 0,0,0)
+                elseif sirenChange then 
+                    local soundId = GetSoundId()
+                    StopSound(Entity(car).state.soundId)
+                    Entity(car).state:set('sirenOn', true, true)
+                    Entity(car).state:set('soundId', soundId, true)
+                    Entity(car).state:set("currentSiren", val.siren ,true)
+                    PlaySoundFromEntity(soundId, val.siren, car, 0,0,0)
+                end
             end
         end
         Wait(500)
