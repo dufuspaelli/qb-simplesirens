@@ -69,7 +69,7 @@ RegisterKeyMapping("sirenHorn", "Play the horn police siren", "KEYBOARD", "RIGHT
 
 CreateThread(function()
     while true do 
-        QBCore.Functions.TriggerCallback('qb-cnr:server:listCopCars', function(sirenServerList)
+        QBCore.Functions.TriggerCallback('qb-simplesirens:server:listSirenCars', function(sirenServerList)
            sirenList = sirenServerList or sirenList
         end)
         Wait(5000)
@@ -115,9 +115,11 @@ function playSiren(siren)
     local playerCar = GetVehiclePedIsIn(playerPed,false)
     local soundId = GetSoundId()
     local carNetId = VehToNet(playerCar)
-    TriggerServerEvent("setSiren", siren, carNetId)
-    sirenList[carNetId] = {}
-    sirenList[carNetId].siren = siren
+    if GetVehicleClass(playerCar) == 18 and IsVehicleSirenOn(playerCar) then 
+        TriggerServerEvent("setSiren", siren, carNetId)
+        sirenList[carNetId] = {}
+        sirenList[carNetId].siren = siren
+    end
 end
 
 function isSirenChange(siren)
