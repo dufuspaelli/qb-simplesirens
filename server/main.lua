@@ -23,14 +23,3 @@ AddEventHandler("entityRemoved", function(handle)
     end
 
 end)
-
-CreateThread(function()
-
-    while true do 
-        for val,key in pairs(cops) do 
-            print(val)
-        end
-        Wait(1000) 
-    end
-
-end)
