@@ -52,7 +52,7 @@ RegisterCommand("sirenMute", function()
     local playerPed = PlayerPedId()
     local playerCar = GetVehiclePedIsIn(playerPed,false)
     local carNetId = VehToNet(playerCar)
-    if isSirenChange("muted") then 
+    if isSirenChange("muted") or Entity(playerCar).state.currentSiren == nil then 
         playSiren("muted")
     else
         local siren = sirenNormal
