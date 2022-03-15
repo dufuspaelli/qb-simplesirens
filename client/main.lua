@@ -8,10 +8,10 @@ local sirenWarn = "VEHICLES_HORNS_POLICE_WARNING"
 local sirenList = {}
 
 RegisterCommand("sirenDefault", function()
-    if isSirenChange(sirenNormal) or not toggle then 
+    if isSirenChange(sirenNormal) or not toggle then
         toggle = true
         playSiren(sirenNormal)
-    elseif toggle and not isSirenChange(sirenNormal) then 
+    elseif toggle and not isSirenChange(sirenNormal) then
         toggle = false
         playSiren("muted")
     end
@@ -65,7 +65,7 @@ RegisterKeyMapping("sirenDefault", "Play the default police siren", "KEYBOARD", 
 RegisterKeyMapping("sirenAlt", "Play the alternative police siren", "KEYBOARD", "DOWN")
 RegisterKeyMapping("sirenWarn", "Play the warning police siren", "KEYBOARD", "LEFT")
 RegisterKeyMapping("sirenHorn", "Play the horn police siren", "KEYBOARD", "RIGHT")
-
+RegisterKeyMapping("sirenMute", "Mute sirens", "KEYBOARD", "NUMPAD0")
 
 CreateThread(function()
     while true do 
